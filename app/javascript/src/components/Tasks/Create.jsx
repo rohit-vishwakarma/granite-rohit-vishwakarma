@@ -13,7 +13,6 @@ const Create = ({ history }) => {
     event.preventDefault();
     setLoading(true);
     try {
-      //   await tasksApi.create(task: { title });
       await tasksApi.create({ title });
       setLoading(false);
       history.push("/dashboard");
