@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  # def index
-  #     # render html: "This is index action of Tasks controller"
-  #     render
-  # end
-
   before_action :load_task!, only: %i[show update]
 
   def index
