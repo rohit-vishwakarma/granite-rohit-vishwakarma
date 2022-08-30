@@ -5,6 +5,9 @@ class TasksController < ApplicationController
   #     # render html: "This is index action of Tasks controller"
   #     render
   # end
+
+  before_action :load_task!, only: %i[show update]
+
   def index
     tasks = Task.all
     render status: :ok, json: { tasks: tasks }
@@ -17,11 +20,20 @@ class TasksController < ApplicationController
   end
 
   def show
+    respond_with_json({ task: @task })
+  end
+
+  def update
     task = Task.find_by!(slug: params[:slug])
-    respond_with_json({ task: task })
+    task.update!(task_params)
+    respond_with_success(t("successfully_updated"))
   end
 
   private
+
+    def load_task!
+      @task = Task.find_by!(slug: params[:slug])
+    end
 
     def task_params
       params.require(:task).permit(:title)
