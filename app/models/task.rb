@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  MAX_TITLE_LENGTH = 125
+  MAX_TITLE_LENGTH = 50
+
+  # before_validation :set_title
+  # after_validation :set_title
+  # before_validation :set_title
+  # before_validation :print_set_title
+  # before_save :change_title
+
   validates :title, presence: true, length: { maximum: MAX_TITLE_LENGTH }
   validates :slug, uniqueness: true
   validate :slug_not_changed
@@ -32,4 +39,16 @@ class Task < ApplicationRecord
         errors.add(:slug, t("task.slug.immutable"))
       end
     end
+
+  # def set_title
+  #   self.title = 'Pay electricity bill'
+  # end
+
+  # def print_set_title
+  #   puts self.title
+  # end
+
+  # def change_title
+  #   self.title = "Pay electricity & TV bill"
+  # end
 end
