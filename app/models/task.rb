@@ -9,6 +9,8 @@ class Task < ApplicationRecord
   # before_validation :print_set_title
   # before_save :change_title
 
+  belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
+
   validates :title, presence: true, length: { maximum: MAX_TITLE_LENGTH }
   validates :slug, uniqueness: true
   validate :slug_not_changed
