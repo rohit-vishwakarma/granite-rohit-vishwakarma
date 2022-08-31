@@ -5,10 +5,18 @@ Rails.application.routes.draw do
   # resources :tasks, only: :index, param: :slug
 
   # resources :tasks, only: %i[index create show], param: :slug # %i[] for symbol elements in array
-  resources :tasks, except: %i[new edit], param: :slug
-  resources :users, only: :index
+  # resources :tasks, except: %i[new edit], param: :slug
+  # resources :tasks, except: %i[new edit], param: :slug, defaults: { format: 'json' }
+  # resources :users, only: :index
+  # defaults format: :json do
+  #   resources :tasks, except: %i[new edit], param: :slug
+  #   resources :users, only: :index
+  # end
+  constraints(lambda { |req| req.format == :json }) do
+    resources :tasks, except: %i[new edit], param: :slug
+    resources :users, only: :index
+  end
 
   root "home#index"
   get "*path", to: "home#index", via: :all
-
 end
