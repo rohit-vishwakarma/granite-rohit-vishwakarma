@@ -3,6 +3,8 @@
 class Task < ApplicationRecord
   MAX_TITLE_LENGTH = 50
 
+  belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
+
   # before_validation :set_title
   # after_validation :set_title
   # before_validation :set_title
