@@ -35,6 +35,7 @@ group :development, :test do
   # For code formatting and linting
   gem "rubocop"
   gem "rubocop-rails"
+
 end
 
 group :development do
@@ -60,3 +61,11 @@ gem "react-rails"
 gem "bcrypt", "~> 3.1.13"
 # adding simplecov test overage
 gem "simplecov", require: false, group: :test
+
+group :development, :test do
+  # Rails integration for factory_bot, a replacement for fixtures
+  gem "factory_bot_rails"
+
+  # For auto-generating demo data
+  gem "faker"
+end
