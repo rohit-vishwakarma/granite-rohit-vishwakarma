@@ -58,3 +58,5 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "react-rails"
 # adding bcrypt authentication
 gem "bcrypt", "~> 3.1.13"
+# adding simplecov test overage
+gem "simplecov", require: false, group: :test
