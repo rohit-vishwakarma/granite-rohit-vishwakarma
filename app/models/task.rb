@@ -2,6 +2,7 @@
 
 class Task < ApplicationRecord
   enum status: { unstarred: "unstarred", starred: "starred" }
+  after_create :log_task_details
 
   RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
   enum progress: { pending: "pending", completed: "completed" }
@@ -59,6 +60,10 @@ class Task < ApplicationRecord
         unstarred = completed.unstarred.order("updated_at DESC")
       end
       starred + unstarred
+    end
+
+    def log_task_details
+      TaskLoggerJob.perform_later(self)
     end
 
   # def set_title
