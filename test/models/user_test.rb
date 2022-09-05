@@ -114,4 +114,10 @@ class UserTest < ActiveSupport::TestCase
     @user.destroy
     assert_equal task.reload.assigned_user_id, task_owner.id
   end
+
+  # Adding tests for the user Model
+  def test_preference_created_is_valid
+    @user.save
+    assert @user.preference.valid?
+  end
 end

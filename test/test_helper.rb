@@ -45,3 +45,5 @@ def headers(user, options = {})
     "X-Auth-Email" => user.email
   }.merge(options)
 end
+
+Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
