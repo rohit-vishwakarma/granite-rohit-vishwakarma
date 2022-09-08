@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  MAX_TITLE_LENGTH = 50
+  RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
+  scope :accessible_to, ->(user_id) { where("task_owner_id = ? OR assigned_user_id = ?", user_id, user_id) }
+
   enum status: { unstarred: "unstarred", starred: "starred" }
+  enum progress: { pending: "pending", completed: "completed" }
   after_create :log_task_details
   after_commit :log_task_details, on: :create
-
-  RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
-  enum progress: { pending: "pending", completed: "completed" }
-
-  MAX_TITLE_LENGTH = 50
 
   belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
   belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
